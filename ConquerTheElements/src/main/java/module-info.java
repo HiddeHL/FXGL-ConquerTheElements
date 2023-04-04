@@ -1,4 +1,4 @@
-module com.hsleiden.conquertheelements.conquertheelements {
+module com.hsleiden.conquertheelements {
     requires javafx.controls;
     requires javafx.fxml;
 
