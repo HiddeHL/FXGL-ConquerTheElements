@@ -5,8 +5,10 @@ import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.MenuItem;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.entity.level.tiled.TiledMap;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.util.Arrays;
@@ -32,6 +34,14 @@ public class ShootieApp extends GameApplication {
     @Override
     protected void initGame() {
         getGameWorld().addEntityFactory(factory);
+        getGameScene().setBackgroundColor(Color.AQUAMARINE);
+        getAssetLoader().loadJSON("untitled.json", TiledMap.class);
+        getAssetLoader().loadTexture("untitled.png");
+        setLevelFromMap("HOLYFUCK.tmx");
+        //setLevelFromMap("untitled.json");
+
+        //getGameWorld().setLevel(setLevelFromMap("untitled.json"));
+
 
         player = spawn("player", getAppWidth() / 2 - 15, getAppHeight() / 2 - 15);
         //ShootieFactory.setPlayer(player);
@@ -58,7 +68,7 @@ public class ShootieApp extends GameApplication {
         settings.setTitle("Test Game pogchamp");
         settings.setVersion("0.1");
         settings.setWidth(1280);
-        settings.setHeight(720);
+        settings.setHeight(700);
         settings.setProfilingEnabled(false);
         settings.setMainMenuEnabled(true);
         settings.setGameMenuEnabled(true);
@@ -74,7 +84,7 @@ public class ShootieApp extends GameApplication {
     }
 
     public enum EntityType {
-        PLAYER, ENEMY, BULLET
+        PLAYER, ENEMY, BULLET, WATER
     }
 
     public static Entity getPlayer() {

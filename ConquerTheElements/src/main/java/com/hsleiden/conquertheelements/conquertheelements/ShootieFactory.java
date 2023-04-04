@@ -8,6 +8,7 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
+import com.almasb.fxgl.physics.HitBox;
 import com.hsleiden.conquertheelements.conquertheelements.components.MoveTowardsPlayerComponent;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -46,6 +47,14 @@ public class ShootieFactory implements EntityFactory {
                 .collidable()
                 .with(new ProjectileComponent(direction, 1000))
                 .with(new OffscreenCleanComponent())
+                .build();
+    }
+
+    @Spawns("water")
+    public Entity newWater(SpawnData data) {
+        return entityBuilder()
+                .at(data.getX(), data.getY())
+                .from(data)
                 .build();
     }
 
