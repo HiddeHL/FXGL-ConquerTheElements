@@ -28,13 +28,6 @@ public class PauseMenu extends FXGLMenu {
             fireResume();
         });
 
-        BackgroundImage backgroundImage = new BackgroundImage(
-                new Image("C:\\Users\\hidde\\OneDrive - Hogeschool Leiden\\HBO\\Jaar 1\\IOOA - JAVA 2\\Eindopdracht\\FXGLProject\\src\\main\\resources\\assets\\textures", true),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(1280, 720, true, true, true, true)
-        );
-
         vBox.getChildren().addAll(quitButton, resumeButton);
 
         vBox.setTranslateX(FXGL.getAppWidth() / 2 - 200 / 2);
@@ -50,7 +43,7 @@ public class PauseMenu extends FXGLMenu {
                 .interpolator(Interpolators.EXPONENTIAL.EASE_OUT())
                 .scale(getContentRoot())
                 .from(new Point2D(0, 0))
-                .to(new Point2D(1, 1))
+                .to(new Point2D(0, 1))
                 .build();
     }
 

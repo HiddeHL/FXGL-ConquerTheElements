@@ -68,6 +68,8 @@ public class ShooterEntityFactory implements EntityFactory {
         return entityBuilder(data)
                 .type(EntityType.BULLET)
                 .viewWithBBox(bullet)
+                .view("firedrop2.png")
+                .scale(0.2, 0.2)
                 .with(new ProjectileComponent(dir, 500))
                 .with(new OffscreenCleanComponent())
                 .with(new TimeComponent())
