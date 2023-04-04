@@ -1,4 +1,4 @@
-package com.hsleiden.conquertheelements.conquertheelements.Leaderboard;
+package com.hsleiden.conquertheelements.Leaderboard;
 
 import java.io.IOException;
 import java.util.ArrayList;

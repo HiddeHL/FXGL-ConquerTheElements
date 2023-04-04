@@ -1,4 +1,4 @@
-package com.hsleiden.conquertheelements.conquertheelements.Leaderboard;
+package com.hsleiden.conquertheelements.Leaderboard;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ public class ReadDataFromFile {
     public ArrayList<PlayerRecords> readFile() throws IOException {
         ArrayList<PlayerRecords> records = new ArrayList<>();
         try {
-            File myObj = new File("C:\\Users\\geert\\OneDrive\\Documenten\\GitHub\\FXGL-ConquerTheElements\\ConquerTheElements\\src\\main\\java\\com\\hsleiden\\conquertheelements\\conquertheelements\\Leaderboard\\LeaderboardDatabase");
+            File myObj = new File("C:\\Users\\hidde\\OneDrive - Hogeschool Leiden\\HBO\\Jaar 1\\SE-Challengeweek\\GIT\\ConquerTheElements\\ConquerTheElements\\src\\main\\java\\com\\hsleiden\\conquertheelements\\Leaderboard\\LeaderboardDatabase");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();

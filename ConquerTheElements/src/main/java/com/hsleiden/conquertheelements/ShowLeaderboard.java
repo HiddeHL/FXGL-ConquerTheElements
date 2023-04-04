@@ -14,8 +14,6 @@ import java.util.ArrayList;
 
 
 public class ShowLeaderboard extends GameApplication {
-
-
     @Override
     protected void initSettings(GameSettings gameSettings) {
         gameSettings.setWidth(1280);

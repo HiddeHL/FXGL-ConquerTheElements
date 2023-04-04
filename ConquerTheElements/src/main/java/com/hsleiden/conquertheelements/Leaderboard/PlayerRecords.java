@@ -1,4 +1,4 @@
-package com.hsleiden.conquertheelements.conquertheelements.Leaderboard;
+package com.hsleiden.conquertheelements.Leaderboard;
 
 public class PlayerRecords {
     private String username;
