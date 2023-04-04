@@ -8,7 +8,6 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.EntityFactory;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
-import com.hsleiden.conquertheelements.*;
 import com.hsleiden.conquertheelements.conquertheelements.components.MoveTowardsPlayerComponent;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
