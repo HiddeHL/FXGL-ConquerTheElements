@@ -1,4 +1,4 @@
-package com.hsleiden.conquertheelements.Enums;
+package com.hsleiden.conquertheelements.enums;
 
 public enum AnimationState {
     WALKINGFORWARD, IDLE, WALKINGBACKWARD, WALKINGSIDE

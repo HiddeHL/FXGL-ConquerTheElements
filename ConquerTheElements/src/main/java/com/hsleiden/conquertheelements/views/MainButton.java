@@ -1,4 +1,4 @@
-package com.hsleiden.conquertheelements.Views;
+package com.hsleiden.conquertheelements.views;
 
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.beans.binding.Bindings;

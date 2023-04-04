@@ -4,7 +4,7 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.texture.AnimatedTexture;
 import com.almasb.fxgl.texture.AnimationChannel;
-import com.hsleiden.conquertheelements.Enums.AnimationState;
+import com.hsleiden.conquertheelements.enums.AnimationState;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
 

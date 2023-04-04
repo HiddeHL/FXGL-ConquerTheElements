@@ -6,12 +6,9 @@ import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
-import com.hsleiden.conquertheelements.Enums.EntityType;
-import com.hsleiden.conquertheelements.Factory.ShooterEntityFactory;
-import com.hsleiden.conquertheelements.components.EnemyComponent;
-import com.hsleiden.conquertheelements.components.GunComponent;
-import com.hsleiden.conquertheelements.components.MovemementComponent;
-import com.hsleiden.conquertheelements.components.PlayerComponent;
+import com.hsleiden.conquertheelements.components.*;
+import com.hsleiden.conquertheelements.enums.EntityType;
+import com.hsleiden.conquertheelements.factory.ShooterEntityFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.util.Duration;
@@ -67,6 +64,7 @@ public class ShooterApp extends GameApplication {
         var gameWorld = getGameWorld();
         run(() -> {
             var e = gameWorld.create("enemy", new SpawnData(random(10, getAppWidth()), random(10, getAppHeight())));
+            e.addComponent(new MoveTowardsPlayerComponent(player));
             spawnWithScale(e, Duration.seconds(0.3));
         }, Duration.seconds(1));
     }

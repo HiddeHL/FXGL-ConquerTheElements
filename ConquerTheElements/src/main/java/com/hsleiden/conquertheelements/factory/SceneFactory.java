@@ -1,4 +1,4 @@
-package com.hsleiden.conquertheelements.Factory;
+package com.hsleiden.conquertheelements.factory;
 
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.LoadingScene;

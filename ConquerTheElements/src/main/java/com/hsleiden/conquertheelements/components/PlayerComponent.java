@@ -16,7 +16,6 @@ public class PlayerComponent extends Component {
         var hp = entity.getComponent(HealthIntComponent.class);
         hp.damage(dmg);
 
-
         if (health <= 0) {
             showMessage("Je bent dood!", () -> {
                 getGameController().gotoMainMenu();

@@ -3,7 +3,7 @@ package com.hsleiden.conquertheelements;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.dsl.FXGL;
-import com.hsleiden.conquertheelements.Views.MainButton;
+import com.hsleiden.conquertheelements.views.MainButton;
 import javafx.scene.layout.VBox;
 
 public class ShooterMenu extends FXGLMenu {

@@ -2,7 +2,7 @@ package com.hsleiden.conquertheelements.components;
 
 import com.almasb.fxgl.core.math.Vec2;
 import com.almasb.fxgl.entity.component.Component;
-import com.hsleiden.conquertheelements.Enums.AnimationState;
+import com.hsleiden.conquertheelements.enums.AnimationState;
 
 public class MovemementComponent extends Component {
     private int movementSpeed = 5;

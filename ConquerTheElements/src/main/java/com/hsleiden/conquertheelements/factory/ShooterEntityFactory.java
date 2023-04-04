@@ -1,10 +1,10 @@
-package com.hsleiden.conquertheelements.Factory;
+package com.hsleiden.conquertheelements.factory;
 
 import com.almasb.fxgl.dsl.components.*;
 import com.almasb.fxgl.entity.*;
 import com.almasb.fxgl.entity.components.TimeComponent;
 import com.almasb.fxgl.ui.ProgressBar;
-import com.hsleiden.conquertheelements.Enums.EntityType;
+import com.hsleiden.conquertheelements.enums.EntityType;
 import com.hsleiden.conquertheelements.components.*;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -87,9 +87,9 @@ public class ShooterEntityFactory implements EntityFactory {
                 .type(EntityType.ENEMY)
                 .viewWithBBox(circle)
                 .collidable()
-                .with(new RandomMoveComponent(
-                        new Rectangle2D(0, 0,
-                                getAppWidth(), getAppHeight()), 50))
+//                .with(new RandomMoveComponent(
+//                        new Rectangle2D(0, 0,
+//                                getAppWidth(), getAppHeight()), 50))
                 .with(new EnemyComponent(50))
                 .build();
 
