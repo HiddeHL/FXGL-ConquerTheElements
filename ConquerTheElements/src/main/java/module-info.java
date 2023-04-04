@@ -5,6 +5,7 @@ module com.hsleiden.conquertheelements {
     requires com.almasb.fxgl.all;
 
     opens assets.textures;
+    opens assets.sounds;
 
     opens com.hsleiden.conquertheelements to javafx.fxml;
     opens com.hsleiden.conquertheelements.factory to com.almasb.fxgl.core;
