@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hsleiden.conquertheelements.conquertheelements.Controller">
+   <children>
+      <TextField layoutX="547.0" layoutY="363.0" onAction="#submit" prefHeight="35.0" prefWidth="191.0" promptText="username" fx:id="textField" />
+      <Label alignment="CENTER" layoutX="520.0" layoutY="327.0" prefHeight="26.0" prefWidth="238.0" text="Voer jouw username in:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="576.0" layoutY="408.0" mnemonicParsing="false" onAction="#submit" prefHeight="38.0" prefWidth="143.0" text="Submit" />
+   </children>
+</AnchorPane>
