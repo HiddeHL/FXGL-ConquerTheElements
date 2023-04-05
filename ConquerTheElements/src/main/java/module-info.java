@@ -6,6 +6,7 @@ module com.hsleiden.conquertheelements {
 
     opens assets.textures;
     opens assets.sounds;
+    opens assets.levels;
 
     opens com.hsleiden.conquertheelements to javafx.fxml;
     opens com.hsleiden.conquertheelements.factory to com.almasb.fxgl.core;

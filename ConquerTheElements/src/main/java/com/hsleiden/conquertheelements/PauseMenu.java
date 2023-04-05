@@ -24,9 +24,7 @@ public class PauseMenu extends FXGLMenu {
             FXGL.getGameController().gotoMainMenu();
         });
 
-        MainButton resumeButton = new MainButton("Resume", () -> {
-            fireResume();
-        });
+        MainButton resumeButton = new MainButton("Resume", this::fireResume);
 
         vBox.getChildren().addAll(quitButton, resumeButton);
 
@@ -40,10 +38,10 @@ public class PauseMenu extends FXGLMenu {
         getContentRoot().getChildren().add(vBox);
         animation = FXGL.animationBuilder()
                 .duration(Duration.seconds(0.66))
-                .interpolator(Interpolators.EXPONENTIAL.EASE_OUT())
+                .interpolator(Interpolators.EXPONENTIAL.EASE_IN_OUT())
                 .scale(getContentRoot())
                 .from(new Point2D(0, 0))
-                .to(new Point2D(0, 1))
+                .to(new Point2D(1, 1))
                 .build();
     }
 
