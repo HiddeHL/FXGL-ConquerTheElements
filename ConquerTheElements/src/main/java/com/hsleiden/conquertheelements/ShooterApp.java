@@ -5,6 +5,7 @@ import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.LoadingScene;
 import com.almasb.fxgl.app.scene.SceneFactory;
+import com.almasb.fxgl.app.scene.Viewport;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
@@ -28,6 +29,9 @@ public class ShooterApp extends GameApplication {
     private Entity player;
 
     private int MAX_LEVEL = 2;
+    private int limit = 0;
+    private int numOfSpawnedEnemys;
+    private int numOfKilledEnemys;
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
@@ -37,8 +41,6 @@ public class ShooterApp extends GameApplication {
         gameSettings.setVersion("0.1");
         gameSettings.setManualResizeEnabled(false);
         gameSettings.setMainMenuEnabled(true);
-//        gameSettings.setFullScreenFromStart(true);
-//        gameSettings.setFullScreenAllowed(true);
 
         gameSettings.setSceneFactory(new SceneFactory() {
             @Override
@@ -82,9 +84,15 @@ public class ShooterApp extends GameApplication {
         var gameWorld = getGameWorld();
 
         run(() -> {
-            var e = gameWorld.create("enemy", new SpawnData(random(10, getAppWidth()), random(10, getAppHeight())));
-            e.addComponent(new MoveTowardsPlayerComponent(player));
-            spawnWithScale(e, Duration.seconds(0.3));
+            if (numOfSpawnedEnemys < limit) {
+                var e = gameWorld.create("enemy", new SpawnData(random(10, getAppWidth()), random(10, getAppHeight())));
+                e.addComponent(new MoveTowardsPlayerComponent(player));
+                spawnWithScale(e, Duration.seconds(0.3));
+                numOfSpawnedEnemys++;
+            } else {
+
+            }
+
         }, Duration.seconds(1));
     }
 
@@ -95,9 +103,18 @@ public class ShooterApp extends GameApplication {
             enemy.removeFromWorld();
 
             player.getComponent(PlayerComponent.class).doDamage();
+            numOfKilledEnemys++;
         });
 
-        onCollisionOneTimeOnly(PLAYER, EntityType.DOOR, (player, door) -> nextLevel());
+        onCollisionBegin(PLAYER, EntityType.DOOR, (player, door) -> {
+            if (numOfKilledEnemys == limit) {
+                nextLevel();
+            } else {
+                System.out.println("----");
+                System.out.println("Killed: " + numOfKilledEnemys);
+                System.out.println("Limit: " + limit);
+            }
+        });
 
 
         onCollisionBegin(EntityType.ENEMY, PLAYER, (enemy, player) -> {
@@ -137,6 +154,9 @@ public class ShooterApp extends GameApplication {
 
         if (activeLevel <= MAX_LEVEL) {
             setLevel(activeLevel);
+            limit += 2;
+            numOfKilledEnemys = 0;
+            numOfSpawnedEnemys = 0;
         } else {
             showMessage("Je hebt gewonnen!", () -> {
                 getGameController().gotoMainMenu();
@@ -151,6 +171,14 @@ public class ShooterApp extends GameApplication {
         }
         setLevelFromMap("level" + levelNum + ".tmx");
         player = spawn("player", getAppWidth() / 2, getAppHeight() / 2);
+        setCamera();
+    }
+
+    private void setCamera() {
+        Viewport viewport = getGameScene().getViewport();
+        viewport.setBounds(-1500, 0, 250 * 70, getAppHeight());
+        viewport.bindToEntity(player, getAppWidth() / 2, getAppHeight() / 2);
+        viewport.setLazy(true);
     }
 
     public static void main(String[] args) {
