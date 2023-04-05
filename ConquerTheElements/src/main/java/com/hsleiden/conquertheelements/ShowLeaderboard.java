@@ -1,10 +1,10 @@
-package com.hsleiden.conquertheelements.conquertheelements;
+package com.hsleiden.conquertheelements;
 
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
-import com.hsleiden.conquertheelements.conquertheelements.Leaderboard.Leaderboard;
-import com.hsleiden.conquertheelements.conquertheelements.Leaderboard.PlayerRecords;
+import com.hsleiden.conquertheelements.Leaderboard.Leaderboard;
+import com.hsleiden.conquertheelements.Leaderboard.PlayerRecords;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;

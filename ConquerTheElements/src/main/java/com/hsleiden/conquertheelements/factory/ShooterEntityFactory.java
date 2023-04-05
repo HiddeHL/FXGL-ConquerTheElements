@@ -106,19 +106,13 @@ public class ShooterEntityFactory implements EntityFactory {
 
     @Spawns("enemy")
     public Entity newEnemy(SpawnData data) {
-        Circle circle = new Circle(20, 20, 20, Color.RED);
-        circle.setStroke(Color.BROWN);
-        circle.setStrokeWidth(2.0);
-
-        Entity enemy = entityBuilder()
+        return entityBuilder()
                 .from(data)
                 .type(EntityType.ENEMY)
-                .viewWithBBox(circle)
+                .viewWithBBox("blue_ghost40.png")
                 .collidable()
-                .with(new EnemyComponent(20))
+                .with(new EnemyComponent(50))
                 .build();
-
-        return enemy;
     }
 
     @Spawns("wall")
