@@ -10,5 +10,7 @@ module com.hsleiden.conquertheelements {
 
     opens com.hsleiden.conquertheelements to javafx.fxml;
     opens com.hsleiden.conquertheelements.factory to com.almasb.fxgl.core;
+
     exports com.hsleiden.conquertheelements;
+    exports com.hsleiden.conquertheelements.components to com.almasb.fxgl.core;
 }
