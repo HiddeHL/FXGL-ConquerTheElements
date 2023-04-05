@@ -9,16 +9,18 @@ import com.almasb.fxgl.app.scene.Viewport;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
+import com.hsleiden.conquertheelements.Leaderboard.DataController;
 import com.hsleiden.conquertheelements.components.*;
 import com.hsleiden.conquertheelements.enums.EntityType;
 import com.hsleiden.conquertheelements.factory.ShooterEntityFactory;
+import javafx.beans.value.ObservableIntegerValue;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.Map;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
@@ -32,13 +34,14 @@ public class ShooterApp extends GameApplication {
     private int limit = 0;
     private int numOfSpawnedEnemys;
     private int numOfKilledEnemys;
+    private double spawnSpeed;
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
         gameSettings.setWidth(1280);
         gameSettings.setHeight(720);
-        gameSettings.setTitle("Charachter Controller");
-        gameSettings.setVersion("0.1");
+        gameSettings.setTitle("Conquer the Elements");
+        gameSettings.setVersion("1.0");
         gameSettings.setManualResizeEnabled(false);
         gameSettings.setMainMenuEnabled(true);
 
@@ -77,10 +80,15 @@ public class ShooterApp extends GameApplication {
         getGameWorld().addEntityFactory(new ShooterEntityFactory());
 
         player = null;
+
+        limit = 0;
+        numOfSpawnedEnemys = 0;
+        numOfKilledEnemys = 0;
+        spawnSpeed = 1;
+
         nextLevel();
 
         set("player", player);
-
         var gameWorld = getGameWorld();
 
         run(() -> {
@@ -89,11 +97,8 @@ public class ShooterApp extends GameApplication {
                 e.addComponent(new MoveTowardsPlayerComponent(player));
                 spawnWithScale(e, Duration.seconds(0.3));
                 numOfSpawnedEnemys++;
-            } else {
-
             }
-
-        }, Duration.seconds(1));
+        }, Duration.seconds(spawnSpeed));
     }
 
     @Override
@@ -104,15 +109,12 @@ public class ShooterApp extends GameApplication {
 
             player.getComponent(PlayerComponent.class).doDamage();
             numOfKilledEnemys++;
+            getWorldProperties().increment("enemiesLeft", -1);
         });
 
         onCollisionBegin(PLAYER, EntityType.DOOR, (player, door) -> {
             if (numOfKilledEnemys == limit) {
                 nextLevel();
-            } else {
-                System.out.println("----");
-                System.out.println("Killed: " + numOfKilledEnemys);
-                System.out.println("Limit: " + limit);
             }
         });
 
@@ -129,22 +131,32 @@ public class ShooterApp extends GameApplication {
 
         vars.put("score", 0);
         vars.put("level", 0);
+        vars.put("startTime", System.currentTimeMillis());
+        vars.put("enemiesLeft", 0);
     }
 
     @Override
     protected void initUI() {
         super.initUI();
 
-        var scoreLabel = new Label("Score");
-        scoreLabel.setText("Score: "+ getWorldProperties().getInt("score"));
+        Label label = new Label("Enemies left: ");
+        label.setStyle("-fx-text-fill: white");
+        label.setScaleX(2);
+        label.setScaleY(2);
+        label.setTranslateX(40);
+        label.setTranslateY(10);
+
+        var scoreLabel = new Label("");
         scoreLabel.setStyle("-fx-text-fill: white");
         scoreLabel.setScaleX(2);
         scoreLabel.setScaleY(2);
+        scoreLabel.textProperty().bind(getWorldProperties().intProperty("enemiesLeft").asString());
 
-        scoreLabel.setTranslateX(30);
+        scoreLabel.setTranslateX(160);
         scoreLabel.setTranslateY(10);
 
-        FXGL.getGameScene().addUINode(scoreLabel);
+        getGameScene().addUINode(label);
+        getGameScene().addUINode(scoreLabel);
     }
 
     private void nextLevel() {
@@ -154,11 +166,23 @@ public class ShooterApp extends GameApplication {
 
         if (activeLevel <= MAX_LEVEL) {
             setLevel(activeLevel);
-            limit += 2;
-            numOfKilledEnemys = 0;
+            limit += 15;
+            getWorldProperties().setValue("enemiesLeft", limit);
             numOfSpawnedEnemys = 0;
+            numOfKilledEnemys = 0;
+            spawnSpeed-=0.20;
         } else {
-            showMessage("Je hebt gewonnen!", () -> {
+            long finish = System.currentTimeMillis();
+            long start = getWorldProperties().getValue("startTime");
+            long timeElapsed = (finish - start) / 1000;
+
+            getDialogService().showInputBox("Je hebt gewonnen! \n het duurde " + timeElapsed + " Seconde!", name -> {
+                try {
+                    DataController writer = new DataController();
+                    writer.writeDataToFile(name, numOfKilledEnemys, timeElapsed);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 getGameController().gotoMainMenu();
             });
         }
@@ -171,7 +195,6 @@ public class ShooterApp extends GameApplication {
         }
         setLevelFromMap("level" + levelNum + ".tmx");
         player = spawn("player", getAppWidth() / 2, getAppHeight() / 2);
-        setCamera();
     }
 
     private void setCamera() {

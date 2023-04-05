@@ -2,12 +2,12 @@ package com.hsleiden.conquertheelements.Leaderboard;
 
 public class PlayerRecords {
     private String username;
-    private int level;
-    private int timeInSeconds;
+    private int enemiesKilled;
+    private long timeInSeconds;
 
-    public PlayerRecords(String username, int level, int timeInSeconds) {
+    public PlayerRecords(String username, int enemiesKilled, int timeInSeconds) {
         this.username = username;
-        this.level = level;
+        this.enemiesKilled = enemiesKilled;
         this.timeInSeconds = timeInSeconds;
     }
 
@@ -16,10 +16,10 @@ public class PlayerRecords {
     }
 
     public int getLevel() {
-        return level;
+        return enemiesKilled;
     }
 
-    public int getTimeInSeconds() {
+    public long getTimeInSeconds() {
         return timeInSeconds;
     }
 }

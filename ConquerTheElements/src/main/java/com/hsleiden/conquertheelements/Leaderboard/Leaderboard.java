@@ -6,13 +6,13 @@ import java.util.ArrayList;
 public class Leaderboard {
 
     public ArrayList<PlayerRecords> sortLeaderboard() throws IOException {
-        ReadDataFromFile readDataFromFile = new ReadDataFromFile();
-        ArrayList<PlayerRecords> records = readDataFromFile.readFile();
+        DataController dataController = new DataController();
+        ArrayList<PlayerRecords> records = dataController.readFile();
         ArrayList<PlayerRecords> sortedRecords = new ArrayList<>();
 
         while (records.size() > 0) {
             int hoogsteLevel = 0;
-            int laagsteTijd = records.get(0).getTimeInSeconds();
+            long laagsteTijd = records.get(0).getTimeInSeconds();
 
             for (PlayerRecords value : records) {
                 if (value.getLevel() >= hoogsteLevel) {

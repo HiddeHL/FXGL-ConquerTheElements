@@ -88,18 +88,16 @@ public class ShooterMenu extends FXGLMenu {
     }
 
     private void showLeaderboard() throws IOException {
-        System.out.println("dit werkt");
         Leaderboard leaderboard = new Leaderboard();
         ArrayList<PlayerRecords> records = leaderboard.sortLeaderboard();
 
-        var resultString = "Rang \t Level \t Tijd \t Username \n";
+        var resultString = "Rang \t Kills \t Tijd \t Username \n";
 
-        int i = 1;
-        for (PlayerRecords record : records) {
-            resultString += i +". \t\t" + record.getLevel() + "\t\t" + record.getTimeInSeconds() + "\t\t" + record.getUsername() + "\n";
-            i++;
+        for (int i = 0; i < records.size() && i < 20; i++) {
+            PlayerRecords record = records.get(i);
+            resultString += i+1 +". \t\t" + record.getLevel() + "\t\t" + record.getTimeInSeconds() + "\t\t" + record.getUsername() + "\n";
         }
-        
+
         getDialogService().showMessageBox(resultString);
     }
 }

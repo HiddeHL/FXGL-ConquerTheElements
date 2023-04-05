@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ReadDataFromFile {
+public class DataController {
     public ArrayList<PlayerRecords> readFile() throws IOException {
         ArrayList<PlayerRecords> records = new ArrayList<>();
         try {
@@ -21,5 +21,11 @@ public class ReadDataFromFile {
             e.printStackTrace();
         }
         return records;
+    }
+
+    public void writeDataToFile(String naam, int level, long time) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\hidde\\OneDrive - Hogeschool Leiden\\HBO\\Jaar 1\\SE-Challengeweek\\GIT\\ConquerTheElements\\ConquerTheElements\\src\\main\\java\\com\\hsleiden\\conquertheelements\\Leaderboard\\LeaderboardDatabase" ,true));
+        bw.write(naam + ";" + level + ";" + time + "\n");
+        bw.close();
     }
 }
