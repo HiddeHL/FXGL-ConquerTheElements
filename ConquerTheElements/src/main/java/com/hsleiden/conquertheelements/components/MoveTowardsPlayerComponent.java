@@ -20,5 +20,13 @@ public class MoveTowardsPlayerComponent extends Component {
         Point2D direction = playerPosition.subtract(enemyPosition).normalize();
 
         // Set the enemy's velocity to move towards the player
-        entity.translate(direction.multiply(tpf * 100));    }
+        entity.translate(direction.multiply(tpf * 100));
+
+        if (enemyPosition.getX() > playerPosition.getX()) {
+            entity.setScaleX(1);
+        }
+        else {
+            entity.setScaleX(-1);
+        }
+    }
 }
