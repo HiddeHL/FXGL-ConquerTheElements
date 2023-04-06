@@ -21,7 +21,7 @@ import com.hsleiden.conquertheelements.Leaderboard.DataController;
 import com.hsleiden.conquertheelements.components.*;
 import com.hsleiden.conquertheelements.enums.EntityType;
 import com.hsleiden.conquertheelements.factory.ShooterEntityFactory;
-import com.hsleiden.conquertheelements.settings.NextLevelSubScene;
+//import com.hsleiden.conquertheelements.settings.NextLevelSubScene;
 import javafx.beans.value.ObservableIntegerValue;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Control;
@@ -46,6 +46,7 @@ public class ShooterApp extends GameApplication {
     private int numOfSpawnedEnemys;
     private int numOfKilledEnemys;
     private double spawnSpeed;
+    private int kills;
 
     private int numOfBossSpawns = 0;
 
@@ -136,6 +137,8 @@ public class ShooterApp extends GameApplication {
         onCollisionBegin(EntityType.BULLET, EntityType.ENEMY, (bullet, enemy) -> {
             bullet.removeFromWorld();
             enemy.removeFromWorld();
+            kills++;
+            System.out.println(kills);
 
             player.getComponent(PlayerComponent.class).doDamage();
             numOfKilledEnemys++;
@@ -164,7 +167,10 @@ public class ShooterApp extends GameApplication {
 
         onCollisionBegin(EntityType.ENEMY, PLAYER, (enemy, player) -> {
             int dmg = enemy.getComponent(EnemyComponent.class).getDamage();
-            player.getComponent(PlayerComponent.class).takeDamage(dmg);
+            boolean playerDead = player.getComponent(PlayerComponent.class).takeDamage(dmg);
+            if(playerDead){
+                kills = 0;
+            }
         });
 
         onCollisionBegin(EntityType.BULLET, BOSS, (bullet, boss) -> {
@@ -231,10 +237,11 @@ public class ShooterApp extends GameApplication {
         getDialogService().showInputBox("Je hebt gewonnen! \n het duurde " + timeElapsed + " Seconde!", name -> {
             try {
                 DataController writer = new DataController();
-                writer.writeDataToFile(name, numOfKilledEnemys, timeElapsed);
+                writer.writeDataToFile(name, kills, timeElapsed);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            kills = 0;
             getGameController().gotoMainMenu();
         });
     }
@@ -261,6 +268,7 @@ public class ShooterApp extends GameApplication {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+                kills = 0;
                 getGameController().gotoMainMenu();
             });
         }
@@ -281,6 +289,11 @@ public class ShooterApp extends GameApplication {
             }
         }
     }
+
+    public void setKills(int kills) {
+        this.kills = kills;
+    }
+
 
     private void setCamera() {
         Viewport viewport = getGameScene().getViewport();
