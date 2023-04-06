@@ -7,8 +7,10 @@ import com.almasb.fxgl.app.scene.GameScene;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.dsl.FXGL;
 
+import com.almasb.fxgl.ui.FontType;
 import com.hsleiden.conquertheelements.Leaderboard.Leaderboard;
 import com.hsleiden.conquertheelements.Leaderboard.PlayerRecords;
+import com.hsleiden.conquertheelements.settings.SettingsSubScene;
 import com.hsleiden.conquertheelements.views.MainButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
@@ -17,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 
@@ -26,14 +29,15 @@ import java.util.ArrayList;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getDialogService;
 
 public class ShooterMenu extends FXGLMenu {
-    GameApplication leaderboard = new ShowLeaderboard();
-//    BackgroundSize x = new BackgroundSize(getAppWidth(), FXGL.getAppHeight());
-//    BackgroundImage bgImg = new BackgroundImage(img, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-
     public ShooterMenu() {
         super(MenuType.MAIN_MENU);
 
         var vBox = new VBox();
+        var titleText = getUIFactoryService().newText("Conquer the Castle", Color.WHITE, FontType.GAME, 100);
+        titleText.setTextAlignment(TextAlignment.CENTER);
+        titleText.setWrappingWidth(FXGL.getAppWidth() - 100);
+        titleText.setX(80);
+        titleText.setY(200);
 
         var button = new MainButton("Start new game", this::fireNewGame);
         var leaderboardButton = new MainButton("leaderboard", () -> {
@@ -43,6 +47,7 @@ public class ShooterMenu extends FXGLMenu {
                 throw new RuntimeException(e);
             }
         });
+
         var quitButton = new MainButton("Quit", this::fireExit);
 
         button.setPadding(new Insets(8, 8, 8 ,8));
@@ -84,6 +89,7 @@ public class ShooterMenu extends FXGLMenu {
         getContentRoot().getChildren().add(extraImgView);
         getContentRoot().getChildren().add(imgView);
         getContentRoot().getChildren().add(rectange);
+        getContentRoot().getChildren().add(titleText);
         getContentRoot().getChildren().add(vBox);
     }
 

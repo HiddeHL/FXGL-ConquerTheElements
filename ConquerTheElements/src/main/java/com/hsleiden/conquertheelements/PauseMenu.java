@@ -6,12 +6,18 @@ import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.core.util.EmptyRunnable;
 import com.almasb.fxgl.dsl.FXGL;
+import com.hsleiden.conquertheelements.settings.SettingsSubScene;
 import com.hsleiden.conquertheelements.views.MainButton;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+
+import java.util.jar.Manifest;
+
+import static com.almasb.fxgl.dsl.FXGL.getSceneService;
+import static com.almasb.fxgl.dsl.FXGL.getSettings;
 
 public class PauseMenu extends FXGLMenu {
     private Animation<?> animation;
@@ -24,9 +30,19 @@ public class PauseMenu extends FXGLMenu {
             FXGL.getGameController().gotoMainMenu();
         });
 
+        MainButton settingsButton = new MainButton("Toggle Sound", () -> {
+            if (getSettings().getGlobalSoundVolume() == 0) {
+                getSettings().setGlobalSoundVolume(0.2);
+                getSettings().setGlobalMusicVolume(0.2);
+            } else {
+                getSettings().setGlobalSoundVolume(0);
+                getSettings().setGlobalMusicVolume(0);
+            }
+        });
+
         MainButton resumeButton = new MainButton("Resume", this::fireResume);
 
-        vBox.getChildren().addAll(quitButton, resumeButton);
+        vBox.getChildren().addAll(quitButton, settingsButton, resumeButton);
 
         vBox.setTranslateX(FXGL.getAppWidth() / 2 - 200 / 2);
         vBox.setTranslateY(FXGL.getAppHeight() / 2 - 40 / 2);
@@ -57,3 +73,4 @@ public class PauseMenu extends FXGLMenu {
         animation.onUpdate(tpf);
     }
 }
+

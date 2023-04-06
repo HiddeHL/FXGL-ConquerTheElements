@@ -138,4 +138,18 @@ public class ShooterEntityFactory implements EntityFactory {
                 .collidable()
                 .build();
     }
+
+    @Spawns("boss")
+    public Entity endBoss(SpawnData data) {
+        return entityBuilder(data)
+                .type(EntityType.BOSS)
+                .viewWithBBox("boss.png")
+                .with(new CollidableComponent(true))
+                .with(new HealthIntComponent(100))
+                .with(new BossComponent(10, 100))
+                .with(new KeepInBoundsComponent(new Rectangle2D(0, 0, 1260, 700)))
+                .scale(1.8, 1.8)
+                .collidable()
+                .build();
+    }
 }
