@@ -30,7 +30,7 @@ public class ShooterApp extends GameApplication {
 
     private Entity player;
 
-    private int MAX_LEVEL = 2;
+    private int MAX_LEVEL = 4;
     private int limit = 0;
     private int numOfSpawnedEnemys;
     private int numOfKilledEnemys;
@@ -194,7 +194,11 @@ public class ShooterApp extends GameApplication {
             player.setPosition(new Point2D(50, 50));
         }
         setLevelFromMap("level" + levelNum + ".tmx");
-        player = spawn("player", getAppWidth() / 2, getAppHeight() / 2);
+        if (geti("level") == 1) {
+            player = spawn("player", getAppWidth() / 2, getAppHeight() / 2);
+    } else {
+            player = spawn("player", getAppWidth() / 2, 10);
+        }
     }
 
     private void setCamera() {
